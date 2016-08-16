@@ -15,6 +15,7 @@
 		06151D091D5D38DB009669ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06151D071D5D38DB009669ED /* LaunchScreen.storyboard */; };
 		06151D141D5D38DB009669ED /* On_the_MapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06151D131D5D38DB009669ED /* On_the_MapTests.swift */; };
 		06151D1F1D5D38DB009669ED /* On_the_MapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06151D1E1D5D38DB009669ED /* On_the_MapUITests.swift */; };
+		06151D2D1D6018E2009669ED /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06151D2C1D6018E2009669ED /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		06151D1A1D5D38DB009669ED /* On the MapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "On the MapUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		06151D1E1D5D38DB009669ED /* On_the_MapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = On_the_MapUITests.swift; sourceTree = "<group>"; };
 		06151D201D5D38DB009669ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		06151D2C1D6018E2009669ED /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				06151D051D5D38DB009669ED /* Assets.xcassets */,
 				06151D071D5D38DB009669ED /* LaunchScreen.storyboard */,
 				06151D0A1D5D38DB009669ED /* Info.plist */,
+				06151D2C1D6018E2009669ED /* LoginViewController.swift */,
 			);
 			path = "On the Map";
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06151D2D1D6018E2009669ED /* LoginViewController.swift in Sources */,
 				06151D011D5D38DB009669ED /* SecondViewController.swift in Sources */,
 				06151CFD1D5D38DB009669ED /* AppDelegate.swift in Sources */,
 				06151CFF1D5D38DB009669ED /* MapViewController.swift in Sources */,
@@ -488,6 +492,7 @@
 				06151D251D5D38DB009669ED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		06151D261D5D38DB009669ED /* Build configuration list for PBXNativeTarget "On the MapTests" */ = {
 			isa = XCConfigurationList;
@@ -496,6 +501,7 @@
 				06151D281D5D38DB009669ED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		06151D291D5D38DB009669ED /* Build configuration list for PBXNativeTarget "On the MapUITests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +510,7 @@
 				06151D2B1D5D38DB009669ED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
