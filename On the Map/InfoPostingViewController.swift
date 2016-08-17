@@ -29,6 +29,7 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate, MKMapViewDe
     @IBOutlet weak var questionTextView3: UITextView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var urlTextField: UITextField!
+    @IBOutlet weak var submitButton: UIButton!
     
     @IBAction func cancelButtonClicked() {
         let initialViewController = self.storyboard!.instantiateViewControllerWithIdentifier("TabBarController")
@@ -48,14 +49,23 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate, MKMapViewDe
             if let placemark = placemarks?.first {
                 let coordinates : CLLocationCoordinate2D = placemark.location!.coordinate
                 print(coordinates)
+                
+                var annotation = MKPointAnnotation()
+                annotation.coordinate = coordinates
+                annotation.title = address
+                
+                self.mapView.addAnnotation(annotation)
+                
                 self.findButton.hidden = true
                 self.locationTextField.hidden = true
                 self.questionTextView1.hidden = true
                 self.questionTextView2.hidden = true
                 self.questionTextView3.hidden = true
+                self.cancelButton.hidden = false
                 self.mapView.hidden = false
                 self.urlTextField.hidden = false
-                self.cancelButton.tintColor = UIColor.whiteColor()
+                self.submitButton.hidden = false
+                self.cancelButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
             }
         }
     }
@@ -69,6 +79,10 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate, MKMapViewDe
         
         self.mapView.hidden = true
         self.urlTextField.hidden = true
+        self.submitButton.hidden = true
+        
+        self.findButton.layer.cornerRadius = 8
+        self.submitButton.layer.cornerRadius = 8
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -77,4 +91,5 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate, MKMapViewDe
     }
     
     // MARK: - MKMapViewDelegate
+    
 }

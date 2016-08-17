@@ -46,6 +46,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.emailTextField.delegate = self
         self.passwordTextField.delegate = self
         
+        self.loginButton.layer.cornerRadius = 5
+        self.facebookButton.layer.cornerRadius = 5
+        
         //let paddingView = UIView(frame: CGRectMake(0, 0, 15, self.emailTextField.frame.height))
         //emailTextField.leftView = paddingView
         //passwordTextField.leftView = paddingView
