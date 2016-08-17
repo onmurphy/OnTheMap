@@ -27,7 +27,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //getStudentLocations()
+        getStudentLocations()
     }
     
     // MARK: - MKMapViewDelegate
@@ -44,7 +44,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             pinView!.canShowCallout = true
-            pinView!.pinColor = .Red
+            pinView!.pinTintColor = UIColor.redColor()
             pinView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
         }
         else {
@@ -142,15 +142,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 for dictionary in locations {
                     // Notice that the float values are being used to create CLLocationDegree values.
                     // This is a version of the Double type.
-                    let lat = CLLocationDegrees(dictionary["latitude"] as! Double) ?? 0.00
-                    if lat == 0.00 {
+                    if dictionary["latitude"] == nil {
                         continue
                     }
                     
-                    let long = CLLocationDegrees(dictionary["longitude"] as! Double) ?? 0.00
-                    if long == 0.00 {
+                    else if dictionary["longitude"] == nil {
                         continue
                     }
+                    
+                    let lat = CLLocationDegrees(dictionary["latitude"] as! Double)
+                    let long = CLLocationDegrees(dictionary["longitude"] as! Double)
                     
                     // The lat and long are used to create a CLLocationCoordinates2D instance.
                     let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)

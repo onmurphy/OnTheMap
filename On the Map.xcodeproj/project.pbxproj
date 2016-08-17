@@ -16,6 +16,7 @@
 		06151D141D5D38DB009669ED /* On_the_MapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06151D131D5D38DB009669ED /* On_the_MapTests.swift */; };
 		06151D1F1D5D38DB009669ED /* On_the_MapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06151D1E1D5D38DB009669ED /* On_the_MapUITests.swift */; };
 		06151D2D1D6018E2009669ED /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06151D2C1D6018E2009669ED /* LoginViewController.swift */; };
+		06151D2F1D64ADC6009669ED /* InfoPostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06151D2E1D64ADC6009669ED /* InfoPostingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		06151D1E1D5D38DB009669ED /* On_the_MapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = On_the_MapUITests.swift; sourceTree = "<group>"; };
 		06151D201D5D38DB009669ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		06151D2C1D6018E2009669ED /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		06151D2E1D64ADC6009669ED /* InfoPostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPostingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				06151D071D5D38DB009669ED /* LaunchScreen.storyboard */,
 				06151D0A1D5D38DB009669ED /* Info.plist */,
 				06151D2C1D6018E2009669ED /* LoginViewController.swift */,
+				06151D2E1D64ADC6009669ED /* InfoPostingViewController.swift */,
 			);
 			path = "On the Map";
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 				TargetAttributes = {
 					06151CF81D5D38DB009669ED = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 4QSNEZYJQD;
 					};
 					06151D0E1D5D38DB009669ED = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -265,6 +269,7 @@
 				06151D2D1D6018E2009669ED /* LoginViewController.swift in Sources */,
 				06151D011D5D38DB009669ED /* SecondViewController.swift in Sources */,
 				06151CFD1D5D38DB009669ED /* AppDelegate.swift in Sources */,
+				06151D2F1D64ADC6009669ED /* InfoPostingViewController.swift in Sources */,
 				06151CFF1D5D38DB009669ED /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -409,10 +414,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "On the Map/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Murphy.On-the-Map";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -420,10 +428,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "On the Map/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Murphy.On-the-Map";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

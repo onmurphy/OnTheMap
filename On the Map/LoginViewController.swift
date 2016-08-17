@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -42,6 +42,15 @@ class LoginViewController: UIViewController {
         self.warningTextField.hidden = true
         
         appDelegate = UIApplication.sharedApplication().delegate! as! AppDelegate
+        
+        self.emailTextField.delegate = self
+        self.passwordTextField.delegate = self
+        
+        //let paddingView = UIView(frame: CGRectMake(0, 0, 15, self.emailTextField.frame.height))
+        //emailTextField.leftView = paddingView
+        //passwordTextField.leftView = paddingView
+        //emailTextField.leftViewMode = UITextFieldViewMode.Always
+        //passwordTextField.leftViewMode = UITextFieldViewMode.Always
     }
     
     func getSessionId() {
@@ -84,6 +93,11 @@ class LoginViewController: UIViewController {
 
         }
         task.resume()
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     private func setUIEnabled(enabled: Bool) {
