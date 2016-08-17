@@ -32,7 +32,11 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="On the Map" id="ydf-EG-iv4">
-                                        <barButtonItem key="leftBarButtonItem" title="Logout" id="szB-xM-JUp"/>
+                                        <barButtonItem key="leftBarButtonItem" title="Logout" id="szB-xM-JUp">
+                                            <connections>
+                                                <action selector="logoutButtonClicked" destination="9pv-A4-QxB" id="khZ-2F-w4M"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <rightBarButtonItems>
                                             <barButtonItem systemItem="refresh" id="rwY-O8-Rq8"/>
                                             <barButtonItem image="pin" id="GFP-ya-WlO"/>
@@ -106,7 +110,7 @@
         <!--Login View Controller-->
         <scene sceneID="uec-fM-d48">
             <objects>
-                <viewController id="opS-Vs-Gdf" customClass="LoginViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="opS-Vs-Gdf" customClass="LoginViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aCR-p8-8DM"/>
                         <viewControllerLayoutGuide type="bottom" id="Jce-JH-TgH"/>
@@ -185,18 +189,28 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Incorrect login info!" textAlignment="center" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="9qc-XD-yPQ">
+                                <rect key="frame" x="30" y="463" width="541" height="30"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="9qc-XD-yPQ" firstAttribute="top" secondItem="o0a-Hn-d8f" secondAttribute="bottom" constant="20" id="146-ge-Qse"/>
                             <constraint firstItem="zd0-mc-aGW" firstAttribute="trailing" secondItem="o0a-Hn-d8f" secondAttribute="trailing" id="4ko-Ao-nDt"/>
                             <constraint firstItem="YSu-dq-qIZ" firstAttribute="leading" secondItem="PuK-yH-kdb" secondAttribute="leadingMargin" id="5sm-kb-a63"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="9qc-XD-yPQ" secondAttribute="trailing" constant="9" id="B8p-KJ-QRl"/>
                             <constraint firstItem="zd0-mc-aGW" firstAttribute="top" secondItem="ncW-cK-T7h" secondAttribute="bottom" constant="17" id="Bfl-6e-BU5"/>
+                            <constraint firstItem="9qc-XD-yPQ" firstAttribute="leading" secondItem="PuK-yH-kdb" secondAttribute="leadingMargin" constant="10" id="D7Y-48-ZsC"/>
                             <constraint firstItem="EWu-Md-kie" firstAttribute="top" secondItem="aCR-p8-8DM" secondAttribute="bottom" constant="8" symbolic="YES" id="Dsr-1S-hqd"/>
                             <constraint firstItem="ncW-cK-T7h" firstAttribute="trailing" secondItem="YSu-dq-qIZ" secondAttribute="trailing" id="GHg-dQ-NZ8"/>
                             <constraint firstItem="ncW-cK-T7h" firstAttribute="leading" secondItem="YSu-dq-qIZ" secondAttribute="leading" id="HpY-BH-kmp"/>
                             <constraint firstItem="o0a-Hn-d8f" firstAttribute="leading" secondItem="wAu-HL-j7F" secondAttribute="leading" id="Jhs-ut-FwJ"/>
                             <constraint firstItem="YSu-dq-qIZ" firstAttribute="top" secondItem="EWu-Md-kie" secondAttribute="bottom" constant="60" id="RoK-Ze-dSq"/>
                             <constraint firstItem="o0a-Hn-d8f" firstAttribute="trailing" secondItem="wAu-HL-j7F" secondAttribute="trailing" id="TmO-aG-yKf"/>
+                            <constraint firstItem="wAu-HL-j7F" firstAttribute="top" secondItem="9qc-XD-yPQ" secondAttribute="bottom" constant="25" id="WVa-XA-6YG"/>
                             <constraint firstItem="Jce-JH-TgH" firstAttribute="top" secondItem="wAu-HL-j7F" secondAttribute="bottom" constant="32" id="bW6-JS-aD7"/>
                             <constraint firstItem="o0a-Hn-d8f" firstAttribute="top" secondItem="zd0-mc-aGW" secondAttribute="bottom" constant="8" symbolic="YES" id="dA7-Bq-JgS"/>
                             <constraint firstItem="EWu-Md-kie" firstAttribute="leading" secondItem="5gS-KS-j1Z" secondAttribute="leading" id="fS3-wH-XaN"/>
@@ -214,7 +228,10 @@
                     </view>
                     <connections>
                         <outlet property="emailTextField" destination="YSu-dq-qIZ" id="0en-Z6-F1h"/>
+                        <outlet property="facebookButton" destination="wAu-HL-j7F" id="Ok5-o8-2Nn"/>
+                        <outlet property="loginButton" destination="zd0-mc-aGW" id="jgi-K0-q95"/>
                         <outlet property="passwordTextField" destination="ncW-cK-T7h" id="fjx-n6-k02"/>
+                        <outlet property="warningTextField" destination="9qc-XD-yPQ" id="AVM-b7-sNv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UNw-hI-ixl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -224,7 +241,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" id="49e-Tb-3d3" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>

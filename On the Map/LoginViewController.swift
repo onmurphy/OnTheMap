@@ -13,13 +13,35 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var warningTextField: UITextField!
+    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var facebookButton: UIButton!
+    
+    var successfulLogin = false
+    var appDelegate: AppDelegate!
     
     @IBAction func signUpButtonClicked() {
         UIApplication.sharedApplication().openURL(NSURL(string: "https://www.udacity.com/account/auth#!/signup")!)
     }
     
     @IBAction func loginButtonClicked() {
+        setUIEnabled(false)
         getSessionId()
+        if (successfulLogin == true) {
+            let initialViewController = self.storyboard!.instantiateViewControllerWithIdentifier("TabBarController")
+            
+            appDelegate.window?.rootViewController = initialViewController
+            appDelegate.window?.makeKeyAndVisible()
+        } else {
+            self.warningTextField.hidden = false
+        }
+        self.setUIEnabled(true)
+    }
+    
+    override func viewDidLoad() {
+        self.warningTextField.hidden = true
+        
+        appDelegate = UIApplication.sharedApplication().delegate! as! AppDelegate
     }
     
     func getSessionId() {
@@ -46,9 +68,14 @@ class LoginViewController: UIViewController {
             if let account = parsedResult["account"] as? [String : AnyObject] {
                 if let registered = account["registered"] as? Int {
                     if (registered == 1) {
-                        let mainStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-                        let vc : UIViewController = mainStoryboard.instantiateViewControllerWithIdentifier("MapViewController") as UIViewController
-                        self.presentViewController(vc, animated: true, completion: nil)                    }
+                        self.successfulLogin = true
+                        
+                        if let session = parsedResult["session"] as? [String: AnyObject!] {
+                            let sessionID = session["id"] as? String
+                        }
+                        self.appDelegate.sessionID = "sessionID"
+                        
+                    }
                 }
             } else {
                 print ("Could not find key account")
@@ -57,5 +84,19 @@ class LoginViewController: UIViewController {
 
         }
         task.resume()
+    }
+    
+    private func setUIEnabled(enabled: Bool) {
+        emailTextField.enabled = enabled
+        passwordTextField.enabled = enabled
+        loginButton.enabled = enabled
+        facebookButton.enabled = enabled
+        
+        // adjust login button alpha
+        if enabled {
+            loginButton.alpha = 1.0
+        } else {
+            loginButton.alpha = 0.5
+        }
     }
 }

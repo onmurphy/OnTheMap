@@ -11,7 +11,18 @@ import MapKit
 
 class MapViewController: UIViewController, MKMapViewDelegate {
 
+    var successfulLogout = false
+    
     @IBOutlet weak var mapView: MKMapView!
+    
+    @IBAction func logoutButtonClicked() {
+        attemptLogout()
+        
+        if (successfulLogout == true) {
+            let vc = self.storyboard!.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
+            self.presentViewController(vc, animated: true, completion: nil)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,14 +137,20 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 parsedResult = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
             
             if let locations = parsedResult["results"] as? [[String : AnyObject]] {
-                print (locations)
                 var annotations = [MKPointAnnotation]()
                 
                 for dictionary in locations {
                     // Notice that the float values are being used to create CLLocationDegree values.
                     // This is a version of the Double type.
-                    let lat = CLLocationDegrees(dictionary["latitude"] as! Double)
-                    let long = CLLocationDegrees(dictionary["longitude"] as! Double)
+                    let lat = CLLocationDegrees(dictionary["latitude"] as! Double) ?? 0.00
+                    if lat == 0.00 {
+                        continue
+                    }
+                    
+                    let long = CLLocationDegrees(dictionary["longitude"] as! Double) ?? 0.00
+                    if long == 0.00 {
+                        continue
+                    }
                     
                     // The lat and long are used to create a CLLocationCoordinates2D instance.
                     let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
@@ -164,6 +181,39 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
         task.resume()
     }
-
+    
+    func attemptLogout() {
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
+        request.HTTPMethod = "DELETE"
+        var xsrfCookie: NSHTTPCookie? = nil
+        let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+        for cookie in sharedCookieStorage.cookies! {
+            if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+        }
+        if let xsrfCookie = xsrfCookie {
+            request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
+        }
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            if error != nil {
+                print(error)
+                return
+            }
+            let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
+            let parsedResult: AnyObject!
+            do {
+                parsedResult = try NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)
+                if let session = parsedResult["session"] as? [String : AnyObject!] {
+                    if session["expiration"] as? String != nil {
+                        self.successfulLogout = true
+                    }
+                }
+            } catch {
+                print("Could not parse the data as JSON")
+                return
+            }
+        }
+        task.resume()
+    }
 }
 
