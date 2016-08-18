@@ -26,16 +26,23 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func loginButtonClicked() {
         setUIEnabled(false)
-        getSessionId()
-        if (successfulLogin == true) {
-            let initialViewController = self.storyboard!.instantiateViewControllerWithIdentifier("TabBarController")
-            
-            appDelegate.window?.rootViewController = initialViewController
-            appDelegate.window?.makeKeyAndVisible()
-        } else {
-            self.warningTextField.hidden = false
+        
+        UdacityClient.sharedInstance().login(self.emailTextField.text!, password: self.passwordTextField.text!) { (successfulLogin, error) in
+            if let error = error {
+                print(error)
+                self.warningTextField.hidden = false
+            } else {
+                if successfulLogin == true {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        let initialViewController = self.storyboard!.instantiateViewControllerWithIdentifier("TabBarController")
+                        
+                        self.appDelegate.window?.rootViewController = initialViewController
+                        self.appDelegate.window?.makeKeyAndVisible()
+                    }
+                }
+            }
+            self.setUIEnabled(true)
         }
-        self.setUIEnabled(true)
     }
     
     override func viewDidLoad() {
@@ -48,58 +55,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         self.loginButton.layer.cornerRadius = 5
         self.facebookButton.layer.cornerRadius = 5
-        
-        //let paddingView = UIView(frame: CGRectMake(0, 0, 15, self.emailTextField.frame.height))
-        //emailTextField.leftView = paddingView
-        //passwordTextField.leftView = paddingView
-        //emailTextField.leftViewMode = UITextFieldViewMode.Always
-        //passwordTextField.leftViewMode = UITextFieldViewMode.Always
     }
     
-    func getSessionId() {
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
-        request.HTTPMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = "{\"udacity\": {\"username\": \"\(self.emailTextField.text!)\", \"password\": \"\(self.passwordTextField.text!)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
-        let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil {
-                return
-            }
-            let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
-
-            let parsedResult: AnyObject!
-            do {
-                parsedResult = try NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)
-            } catch {
-                print("Could not parse the data as JSON")
-                return
-            }
-            
-            if let account = parsedResult["account"] as? [String : AnyObject] {
-                if let registered = account["registered"] as? Int {
-                    if (registered == 1) {
-                        self.successfulLogin = true
-                        
-                        if let session = parsedResult["session"] as? [String: AnyObject!] {
-                            let sessionID = session["id"] as? String
-                        }
-                        self.appDelegate.sessionID = "sessionID"
-                    }
-                }
-            } else {
-                print ("Could not find key account")
-            }
-
-
-        }
-        task.resume()
-    }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    private func moveToTabView() {
+        let initialViewController = self.storyboard!.instantiateViewControllerWithIdentifier("TabBarController")
+        
+        self.appDelegate.window?.rootViewController = initialViewController
+        self.appDelegate.window?.makeKeyAndVisible()
     }
     
     private func setUIEnabled(enabled: Bool) {
@@ -107,8 +75,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.enabled = enabled
         loginButton.enabled = enabled
         facebookButton.enabled = enabled
-        
-        // adjust login button alpha
+
         if enabled {
             loginButton.alpha = 1.0
         } else {
