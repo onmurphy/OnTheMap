@@ -34,7 +34,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getStudentLocations()
+        ParseClient.sharedInstance().getLocations() { (annotations, error) in
+            if let error = error {
+                print(error)
+                
+            } else {
+                self.mapView.addAnnotations(annotations)
+            }
+        }
     }
     
     // MARK: - MKMapViewDelegate
@@ -71,70 +78,5 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             }
         }
     }
-    
-    
-    func getStudentLocations() {
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
-        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
-        let session = NSURLSession.sharedSession()
-        
-        var parsedResult: AnyObject!
-        
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil {
-                print (error)
-            }
-            
-            do {
-                parsedResult = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
-            
-            if let locations = parsedResult["results"] as? [[String : AnyObject]] {
-                var annotations = [MKPointAnnotation]()
-                
-                for dictionary in locations {
-                    // Notice that the float values are being used to create CLLocationDegree values.
-                    // This is a version of the Double type.
-                    if dictionary["latitude"] == nil {
-                        continue
-                    }
-                    
-                    else if dictionary["longitude"] == nil {
-                        continue
-                    }
-                    
-                    let lat = CLLocationDegrees(dictionary["latitude"] as! Double)
-                    let long = CLLocationDegrees(dictionary["longitude"] as! Double)
-                    
-                    // The lat and long are used to create a CLLocationCoordinates2D instance.
-                    let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-                    
-                    let first = dictionary["firstName"] as! String
-                    let last = dictionary["lastName"] as! String
-                    let mediaURL = dictionary["mediaURL"] as! String
-                    
-                    // Here we create the annotation and set its coordiate, title, and subtitle properties
-                    let annotation = MKPointAnnotation()
-                    annotation.coordinate = coordinate
-                    annotation.title = "\(first) \(last)"
-                    annotation.subtitle = mediaURL
-                    
-                    // Finally we place the annotation in an array of annotations.
-                    annotations.append(annotation)
-                }
-                
-                // When the array is complete, we add the annotations to the map.
-                self.mapView.addAnnotations(annotations)
-                
-            } else {
-                print ("could not find key result")
-            }
-        } catch {
-                print ("Could not parse data")
-        }
-    }
-        task.resume()
-    }
-    
 }
 
