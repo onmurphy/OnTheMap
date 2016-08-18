@@ -163,6 +163,9 @@
                                 <state key="normal" title="Submit">
                                     <color key="titleColor" red="0.28627450980000002" green="0.43137254899999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="submitButtonClicked" destination="HsT-Y9-JC8" eventType="touchUpInside" id="LYo-z5-W2R"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.82299679487179478" green="0.82299679487179478" blue="0.82299679487179478" alpha="1" colorSpace="calibratedRGB"/>

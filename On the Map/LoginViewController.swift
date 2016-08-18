@@ -86,7 +86,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                             let sessionID = session["id"] as? String
                         }
                         self.appDelegate.sessionID = "sessionID"
-                        
                     }
                 }
             } else {

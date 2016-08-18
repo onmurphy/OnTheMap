@@ -14,8 +14,13 @@ import MapKit
 class InfoPostViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate {
     
     var appDelegate: AppDelegate!
+    var address: String!
+    var coordinates : CLLocationCoordinate2D!
+    
     let geoCoder = CLGeocoder()
-    let alertController = UIAlertController(title: "Error", message: "Please enter a valid location.", preferredStyle:
+    let locationAlertController = UIAlertController(title: "Error", message: "Please enter a valid location.", preferredStyle:
+        UIAlertControllerStyle.Alert)
+    let linkAlertController = UIAlertController(title: "Error", message: "Please enter a link to be displayed with your pin.", preferredStyle:
         UIAlertControllerStyle.Alert)
     let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (UIAlertAction) in
         print("OK")
@@ -38,21 +43,29 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate, MKMapViewDe
         appDelegate.window?.makeKeyAndVisible()
     }
     
+    @IBAction func submitButtonClicked() {
+        if self.urlTextField.text == "" {
+            self.presentViewController(self.linkAlertController, animated: true, completion: nil)
+        } else {
+            postNewLocation()
+        }
+    }
+    
     @IBAction func findButtonClicked() {
-        let address = locationTextField.text
+        address = locationTextField.text
         
         geoCoder.geocodeAddressString(address!) { (placemarks, error) in
             if error != nil {
-                self.presentViewController(self.alertController, animated: true, completion: nil)
+                self.presentViewController(self.locationAlertController, animated: true, completion: nil)
             }
             
             if let placemark = placemarks?.first {
-                let coordinates : CLLocationCoordinate2D = placemark.location!.coordinate
-                print(coordinates)
+                self.coordinates = placemark.location!.coordinate
+                print(self.coordinates)
                 
-                var annotation = MKPointAnnotation()
-                annotation.coordinate = coordinates
-                annotation.title = address
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = self.coordinates
+                annotation.title = self.address
                 
                 self.mapView.addAnnotation(annotation)
                 
@@ -75,7 +88,8 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate, MKMapViewDe
         
         self.locationTextField.delegate = self
         
-        alertController.addAction(okAction)
+        locationAlertController.addAction(okAction)
+        linkAlertController.addAction(okAction)
         
         self.mapView.hidden = true
         self.urlTextField.hidden = true
@@ -88,6 +102,23 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate, MKMapViewDe
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func postNewLocation() {
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
+        request.HTTPMethod = "POST"
+        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.HTTPBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"\(self.locationTextField.text)\", \"mediaURL\": \"\(self.urlTextField.text)\",\"latitude\": \(self.coordinates.latitude), \"longitude\": \(self.coordinates.longitude)}".dataUsingEncoding(NSUTF8StringEncoding)
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            if error != nil { // Handle error…
+                return
+            }
+            print(NSString(data: data!, encoding: NSUTF8StringEncoding))
+        }
+        task.resume()
     }
     
     // MARK: - MKMapViewDelegate
