@@ -16,11 +16,14 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate, MKMapViewDe
     var appDelegate: AppDelegate!
     var address: String!
     var coordinates : CLLocationCoordinate2D!
+    var annotation: MKPointAnnotation!
     
     let geoCoder = CLGeocoder()
     let locationAlertController = UIAlertController(title: "Error", message: "Please enter a valid location.", preferredStyle:
         UIAlertControllerStyle.Alert)
     let linkAlertController = UIAlertController(title: "Error", message: "Please enter a link to be displayed with your pin.", preferredStyle:
+        UIAlertControllerStyle.Alert)
+    let failureAlertController = UIAlertController(title: "Error", message: "Data could not be posted to server.", preferredStyle:
         UIAlertControllerStyle.Alert)
     let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (UIAlertAction) in
         print("OK")
@@ -47,7 +50,27 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate, MKMapViewDe
         if self.urlTextField.text == "" {
             self.presentViewController(self.linkAlertController, animated: true, completion: nil)
         } else {
-            postNewLocation()
+            ParseClient.sharedInstance().postNewLocation(self.locationTextField.text!, url: self.urlTextField.text!, annotation: annotation) { (success, error) in
+                if error != nil {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.presentViewController(self.failureAlertController, animated: true, completion: nil)
+                    }
+                } else {
+                    if success == true {
+                        dispatch_async(dispatch_get_main_queue()) {
+                            let initialViewController = self.storyboard!.instantiateViewControllerWithIdentifier("TabBarController")
+                            
+                            self.appDelegate.window?.rootViewController = initialViewController
+                            self.appDelegate.window?.makeKeyAndVisible()
+                        }
+                    } else {
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.presentViewController(self.failureAlertController, animated: true, completion: nil)
+                        }
+                    }
+                }
+            }
+
         }
     }
     
@@ -61,13 +84,12 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate, MKMapViewDe
             
             if let placemark = placemarks?.first {
                 self.coordinates = placemark.location!.coordinate
-                print(self.coordinates)
                 
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = self.coordinates
-                annotation.title = self.address
+                self.annotation = MKPointAnnotation()
+                self.annotation.coordinate = self.coordinates
+                self.annotation.title = self.address
                 
-                self.mapView.addAnnotation(annotation)
+                self.mapView.addAnnotation(self.annotation)
                 
                 self.findButton.hidden = true
                 self.locationTextField.hidden = true
@@ -90,6 +112,7 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate, MKMapViewDe
         
         locationAlertController.addAction(okAction)
         linkAlertController.addAction(okAction)
+        failureAlertController.addAction(okAction)
         
         self.mapView.hidden = true
         self.urlTextField.hidden = true
@@ -103,24 +126,5 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate, MKMapViewDe
         textField.resignFirstResponder()
         return true
     }
-    
-    func postNewLocation() {
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
-        request.HTTPMethod = "POST"
-        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"\(self.locationTextField.text)\", \"mediaURL\": \"\(self.urlTextField.text)\",\"latitude\": \(self.coordinates.latitude), \"longitude\": \(self.coordinates.longitude)}".dataUsingEncoding(NSUTF8StringEncoding)
-        let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil { // Handle error…
-                return
-            }
-            print(NSString(data: data!, encoding: NSUTF8StringEncoding))
-        }
-        task.resume()
-    }
-    
-    // MARK: - MKMapViewDelegate
     
 }

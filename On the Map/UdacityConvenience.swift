@@ -20,6 +20,7 @@ func login(username: String, password: String, completionHandlerForLogin: (resul
             if let account = results["account"] as? [String : AnyObject] {
                 if let registered = account["registered"] as? Int {
                     if (registered == 1) {
+                        self.accountKey = account["key"] as? String
                         if let session = results["session"] as? [String: AnyObject!] {
                             self.sessionID = session["id"] as? String
                         }

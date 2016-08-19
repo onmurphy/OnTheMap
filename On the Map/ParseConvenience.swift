@@ -59,4 +59,17 @@ extension ParseClient {
             }
         }
     }
+    
+    func postNewLocation(location: String, url: String, annotation: MKPointAnnotation, completionHandlerForPost: (result: Bool, error: NSError?) -> Void) {
+        
+        taskForPOSTMethod(location, url: url, annotation: annotation) { (results, error) in
+            
+            if let error = error {
+                completionHandlerForPost(result: false, error: error)
+            } else {
+                completionHandlerForPost(result: true, error: nil)
+            }
+        }
+    }
+
 }
