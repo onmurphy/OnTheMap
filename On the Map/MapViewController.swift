@@ -31,17 +31,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    @IBAction func refreshButtonClicked() {
+        loadPins()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        ParseClient.sharedInstance().getLocations() { (annotations, error) in
-            if let error = error {
-                print(error)
-                
-            } else {
-                self.mapView.addAnnotations(annotations)
-            }
-        }
+        loadPins()
     }
     
     // MARK: - MKMapViewDelegate
@@ -75,6 +72,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let app = UIApplication.sharedApplication()
             if let toOpen = view.annotation?.subtitle! {
                 app.openURL(NSURL(string: toOpen)!)
+            }
+        }
+    }
+    
+    private func loadPins() {
+        ParseClient.sharedInstance().getLocations() { (annotations, error) in
+            if let error = error {
+                print(error)
+                
+            } else {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.mapView.addAnnotations(annotations)
+                }
             }
         }
     }

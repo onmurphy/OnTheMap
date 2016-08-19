@@ -40,7 +40,11 @@ extension ParseClient {
                         
                         let first = dictionary["firstName"] as! String
                         let last = dictionary["lastName"] as! String
+                        let name = first + " " + last
                         let mediaURL = dictionary["mediaURL"] as! String
+                        
+                        let student = ParseStudent(name: name, url: mediaURL)
+                        self.students.append(student)
                         
                         // Here we create the annotation and set its coordiate, title, and subtitle properties
                         let annotation = MKPointAnnotation()
@@ -65,9 +69,7 @@ extension ParseClient {
             if let error = error {
                 completionHandlerForGet(result: false, error: error)
             } else {
-                print(result)
                 UdacityClient.sharedInstance().firstName = result["firstName"] as? String
-                print (UdacityClient.sharedInstance().firstName)
                 UdacityClient.sharedInstance().lastName = result["lastName"] as? String
                 completionHandlerForGet(result: true, error: nil)
             }
