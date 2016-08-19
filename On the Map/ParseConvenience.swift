@@ -13,7 +13,7 @@ extension ParseClient {
     
     func getLocations(completionHandlerForGet: (result: [MKPointAnnotation], error: NSError?) -> Void) {
         
-        taskForGETMethod() { (results, error) in
+        taskForGETMethod(true) { (results, error) in
             
             var annotations = [MKPointAnnotation]()
             
@@ -56,6 +56,20 @@ extension ParseClient {
                 } else {
                     completionHandlerForGet(result: annotations, error: NSError(domain: "postToWatchlist parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse postToWatchlist"]))
                 }
+            }
+        }
+    }
+    
+    func getMyLocation(completionHandlerForGet: (result: Bool, error: NSError?) -> Void) {
+        taskForGETMethod(false) { (result, error) in
+            if let error = error {
+                completionHandlerForGet(result: false, error: error)
+            } else {
+                print(result)
+                UdacityClient.sharedInstance().firstName = result["firstName"] as? String
+                print (UdacityClient.sharedInstance().firstName)
+                UdacityClient.sharedInstance().lastName = result["lastName"] as? String
+                completionHandlerForGet(result: true, error: nil)
             }
         }
     }

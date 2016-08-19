@@ -33,6 +33,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 self.warningTextField.hidden = false
             } else {
                 if successfulLogin == true {
+                    
+                    UdacityClient.sharedInstance().getMyUserInfo { (result, error) in
+                        if error != nil {
+                            self.warningTextField.hidden = false
+                        }
+                    }
+                    
                     dispatch_async(dispatch_get_main_queue()) {
                         let initialViewController = self.storyboard!.instantiateViewControllerWithIdentifier("TabBarController")
                         

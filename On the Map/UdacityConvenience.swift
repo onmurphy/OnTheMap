@@ -21,6 +21,7 @@ func login(username: String, password: String, completionHandlerForLogin: (resul
                 if let registered = account["registered"] as? Int {
                     if (registered == 1) {
                         self.accountKey = account["key"] as? String
+
                         if let session = results["session"] as? [String: AnyObject!] {
                             self.sessionID = session["id"] as? String
                         }
@@ -47,6 +48,20 @@ func logout(completionHandlerForLogout: (result: Bool?, error: NSError?) -> Void
                 }
             } else {
                 completionHandlerForLogout(result: nil, error: NSError(domain: "postToWatchlist parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse postToWatchlist"]))
+            }
+        }
+    }
+}
+    
+func getMyUserInfo(completionHandlerForUserInfo: (result: Bool?, error: NSError?) -> Void) {
+    taskForUserInfoMethod() { (results, error) in
+        
+        if let error = error {
+            completionHandlerForUserInfo(result: nil, error: error)
+        } else {
+            if let user = results["user"] as? [String : AnyObject!] {
+                UdacityClient.sharedInstance().lastName = String(user["last_name"]!)
+                UdacityClient.sharedInstance().firstName = String(user["first_name"]!)
             }
         }
     }
