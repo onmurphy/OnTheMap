@@ -72,10 +72,6 @@ class TableViewController: UIViewController {
             
             app.openURL(NSURL(string: student.url)!)
         }
-        
-        func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-            return 100
-        }
     }
 
 
