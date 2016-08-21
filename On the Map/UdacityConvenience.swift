@@ -10,7 +10,7 @@ import Foundation
 
 extension UdacityClient {
 
-func login(username: String, password: String, completionHandlerForLogin: (result: Bool?, error: NSError?) -> Void) {
+func login(username: String, password: String, completionHandlerForLogin: (result: Bool?, error: String?) -> Void) {
     
     taskForLOGINMethod(username, password: password) { (results, error) in
         
@@ -29,13 +29,13 @@ func login(username: String, password: String, completionHandlerForLogin: (resul
                     }
                 }
             } else {
-                completionHandlerForLogin(result: nil, error: NSError(domain: "postToWatchlist parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse postToWatchlist"]))
+                completionHandlerForLogin(result: nil, error: "could not parse results")
             }
         }
     }
 }
     
-func logout(completionHandlerForLogout: (result: Bool?, error: NSError?) -> Void) {
+func logout(completionHandlerForLogout: (result: Bool?, error: String?) -> Void) {
         
     taskForLOGOUTMethod() { (results, error) in
             
@@ -47,13 +47,13 @@ func logout(completionHandlerForLogout: (result: Bool?, error: NSError?) -> Void
                     completionHandlerForLogout(result: true, error: nil)
                 }
             } else {
-                completionHandlerForLogout(result: nil, error: NSError(domain: "postToWatchlist parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse postToWatchlist"]))
+                completionHandlerForLogout(result: nil, error: "Could not parse results")
             }
         }
     }
 }
     
-func getMyUserInfo(completionHandlerForUserInfo: (result: Bool?, error: NSError?) -> Void) {
+func getMyUserInfo(completionHandlerForUserInfo: (result: Bool?, error: String?) -> Void) {
     taskForUserInfoMethod() { (results, error) in
         
         if let error = error {

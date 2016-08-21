@@ -26,7 +26,7 @@ class UdacityClient : NSObject {
     
     // MARK: LOGIN
     
-    func taskForLOGINMethod(username: String, password: String, completionHandlerForLOGIN: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+    func taskForLOGINMethod(username: String, password: String, completionHandlerForLOGIN: (result: AnyObject!, error: String?) -> Void) -> NSURLSessionDataTask {
         
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
         request.HTTPMethod = "POST"
@@ -39,8 +39,7 @@ class UdacityClient : NSObject {
             
             func sendError(error: String) {
                 print(error)
-                let userInfo = [NSLocalizedDescriptionKey : error]
-                completionHandlerForLOGIN(result: nil, error: NSError(domain: "taskForLOGINMethod", code: 1, userInfo: userInfo))
+                completionHandlerForLOGIN(result: nil, error: error)
             }
             
             /* GUARD: Was there an error? */
@@ -51,7 +50,9 @@ class UdacityClient : NSObject {
             
             /* GUARD: Did we get a successful 2XX response? */
             guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
-                sendError("Your request returned a status code other than 2xx!")
+                if ((response as? NSHTTPURLResponse)?.statusCode == 403) {
+                    sendError("403")
+                }
                 return
             }
             
@@ -73,7 +74,7 @@ class UdacityClient : NSObject {
     
     // MARK: LOGOUT
     
-    func taskForLOGOUTMethod(completionHandlerForLOGOUT: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+    func taskForLOGOUTMethod(completionHandlerForLOGOUT: (result: AnyObject!, error: String?) -> Void) -> NSURLSessionDataTask {
         
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
         request.HTTPMethod = "DELETE"
@@ -91,8 +92,7 @@ class UdacityClient : NSObject {
             
             func sendError(error: String) {
                 print(error)
-                let userInfo = [NSLocalizedDescriptionKey : error]
-                completionHandlerForLOGOUT(result: nil, error: NSError(domain: "taskForLOGOUTMethod", code: 1, userInfo: userInfo))
+                completionHandlerForLOGOUT(result: nil, error: error)
             }
             
             /* GUARD: Was there an error? */
@@ -123,7 +123,7 @@ class UdacityClient : NSObject {
         return task
     }
     
-    func taskForUserInfoMethod(completionHandlerForUserInfo: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+    func taskForUserInfoMethod(completionHandlerForUserInfo: (result: AnyObject!, error: String?) -> Void) -> NSURLSessionDataTask {
         
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/\(UdacityClient.sharedInstance().accountKey!)")!)
         let session = NSURLSession.sharedSession()
@@ -132,8 +132,7 @@ class UdacityClient : NSObject {
             
             func sendError(error: String) {
                 print(error)
-                let userInfo = [NSLocalizedDescriptionKey : error]
-                completionHandlerForUserInfo(result: nil, error: NSError(domain: "taskForUserInfoMethod", code: 1, userInfo: userInfo))
+                completionHandlerForUserInfo(result: nil, error: error)
             }
             
             /* GUARD: Was there an error? */
@@ -166,15 +165,14 @@ class UdacityClient : NSObject {
     
     
     // given raw JSON, return a usable Foundation object
-    private func convertDataWithCompletionHandler(data: NSData, completionHandlerForConvertData: (result: AnyObject!, error: NSError?) -> Void) {
+    private func convertDataWithCompletionHandler(data: NSData, completionHandlerForConvertData: (result: AnyObject!, error: String?) -> Void) {
         
         var parsedResult: AnyObject!
         do {
             let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
             parsedResult = try NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)
         } catch {
-            let userInfo = [NSLocalizedDescriptionKey : "Could not parse the data as JSON: '\(data)'"]
-            completionHandlerForConvertData(result: nil, error: NSError(domain: "convertDataWithCompletionHandler", code: 1, userInfo: userInfo))
+            completionHandlerForConvertData(result: nil, error: "Could not parse data")
         }
         
         completionHandlerForConvertData(result: parsedResult, error: nil)

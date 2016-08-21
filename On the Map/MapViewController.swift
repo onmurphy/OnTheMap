@@ -13,6 +13,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
     var successfulLogout = false
     
+    let failureAlertController = UIAlertController(title: "Error", message: "Pins could not be loaded. Check your network connection and try again.", preferredStyle:
+        UIAlertControllerStyle.Alert)
+    let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (UIAlertAction) in
+        print("OK")
+    }
+    
     @IBOutlet weak var mapView: MKMapView!
     
     @IBAction func logoutButtonClicked() {
@@ -37,7 +43,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        failureAlertController.addAction(okAction)
         loadPins()
     }
     
@@ -79,8 +85,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     private func loadPins() {
         ParseClient.sharedInstance().getLocations() { (annotations, error) in
             if let error = error {
-                print(error)
-                
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.presentViewController(self.failureAlertController, animated: true, completion: nil)
+                }
             } else {
                 dispatch_async(dispatch_get_main_queue()) {
                     self.mapView.addAnnotations(annotations)

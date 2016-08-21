@@ -10,4 +10,5 @@ struct ParseStudent {
     
     let name: String
     let url: String
+    let location: String
 }

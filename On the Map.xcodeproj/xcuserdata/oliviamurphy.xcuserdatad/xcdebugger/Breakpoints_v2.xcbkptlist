@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "On the Map/ParseConvenience.swift"
-            timestampString = "493320614.953006"
+            timestampString = "493425944.007467"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
             landmarkName = "getMyLocation(_:)"
             landmarkType = "5">
          </BreakpointContent>

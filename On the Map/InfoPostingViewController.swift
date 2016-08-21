@@ -91,6 +91,10 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate, MKMapViewDe
                 
                 self.mapView.addAnnotation(self.annotation)
                 
+                let span = MKCoordinateSpanMake(0.075, 0.075)
+                let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: self.coordinates.latitude, longitude: self.coordinates.longitude), span: span)
+                self.mapView.setRegion(region, animated: true)
+                
                 self.findButton.hidden = true
                 self.locationTextField.hidden = true
                 self.questionTextView1.hidden = true

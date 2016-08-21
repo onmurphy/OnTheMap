@@ -42,8 +42,9 @@ extension ParseClient {
                         let last = dictionary["lastName"] as! String
                         let name = first + " " + last
                         let mediaURL = dictionary["mediaURL"] as! String
+                        let location = dictionary["mapString"] as! String
                         
-                        let student = ParseStudent(name: name, url: mediaURL)
+                        let student = ParseStudent(name: name, url: mediaURL, location: location)
                         self.students.append(student)
                         
                         // Here we create the annotation and set its coordiate, title, and subtitle properties

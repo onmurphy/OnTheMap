@@ -338,7 +338,7 @@
                                     <constraint firstAttribute="width" constant="228" id="TJa-Dq-ldQ"/>
                                 </constraints>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Login to Udacity" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5gS-KS-j1Z">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Login to Udacity" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5gS-KS-j1Z">
                                 <rect key="frame" x="180" y="124" width="240" height="37"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="4Qo-tH-6W2"/>
@@ -373,7 +373,7 @@
                                     <action selector="signUpButtonClicked" destination="opS-Vs-Gdf" eventType="touchUpInside" id="sny-Ih-JV6"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wAu-HL-j7F">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wAu-HL-j7F" customClass="FBSDKLoginButton">
                                 <rect key="frame" x="20" y="518" width="560" height="50"/>
                                 <color key="backgroundColor" red="0.32966391944412576" green="0.27033770685547776" blue="0.90268429487179491" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -393,12 +393,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Incorrect login info!" textAlignment="center" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="9qc-XD-yPQ">
-                                <rect key="frame" x="30" y="430" width="541" height="30"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -409,12 +403,9 @@
                             <constraint firstItem="YSu-dq-qIZ" firstAttribute="leading" secondItem="PuK-yH-kdb" secondAttribute="leadingMargin" id="9vV-p3-G4G"/>
                             <constraint firstItem="o0a-Hn-d8f" firstAttribute="top" secondItem="zd0-mc-aGW" secondAttribute="bottom" constant="14" id="AGJ-1g-H6l"/>
                             <constraint firstItem="YSu-dq-qIZ" firstAttribute="trailing" secondItem="PuK-yH-kdb" secondAttribute="trailingMargin" id="B5M-Hi-Fys"/>
-                            <constraint firstItem="o0a-Hn-d8f" firstAttribute="centerX" secondItem="9qc-XD-yPQ" secondAttribute="centerX" id="BNL-Ab-R5u"/>
-                            <constraint firstItem="9qc-XD-yPQ" firstAttribute="leading" secondItem="PuK-yH-kdb" secondAttribute="leadingMargin" constant="10" id="Eh1-Nx-Sra"/>
                             <constraint firstItem="o0a-Hn-d8f" firstAttribute="leading" secondItem="wAu-HL-j7F" secondAttribute="leading" id="HMa-Au-cFx"/>
                             <constraint firstItem="ncW-cK-T7h" firstAttribute="top" secondItem="YSu-dq-qIZ" secondAttribute="bottom" constant="8" symbolic="YES" id="IE4-oq-aWW"/>
                             <constraint firstItem="YSu-dq-qIZ" firstAttribute="trailing" secondItem="ncW-cK-T7h" secondAttribute="trailing" id="J1s-nP-qkx"/>
-                            <constraint firstItem="wAu-HL-j7F" firstAttribute="top" secondItem="9qc-XD-yPQ" secondAttribute="bottom" constant="58" id="LMI-wC-8r7"/>
                             <constraint firstItem="ncW-cK-T7h" firstAttribute="leading" secondItem="zd0-mc-aGW" secondAttribute="leading" id="OmO-1P-1bt"/>
                             <constraint firstItem="YSu-dq-qIZ" firstAttribute="top" secondItem="EWu-Md-kie" secondAttribute="bottom" constant="76" id="WWK-uq-EJO"/>
                             <constraint firstItem="5gS-KS-j1Z" firstAttribute="centerX" secondItem="YSu-dq-qIZ" secondAttribute="centerX" id="X76-i1-wRY"/>
@@ -432,7 +423,6 @@
                         <outlet property="facebookButton" destination="wAu-HL-j7F" id="Ok5-o8-2Nn"/>
                         <outlet property="loginButton" destination="zd0-mc-aGW" id="jgi-K0-q95"/>
                         <outlet property="passwordTextField" destination="ncW-cK-T7h" id="fjx-n6-k02"/>
-                        <outlet property="warningTextField" destination="9qc-XD-yPQ" id="AVM-b7-sNv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UNw-hI-ixl" userLabel="First Responder" sceneMemberID="firstResponder"/>
