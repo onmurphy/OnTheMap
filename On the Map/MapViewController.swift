@@ -15,6 +15,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     let failureAlertController = UIAlertController(title: "Error", message: "Pins could not be loaded. Check your network connection and try again.", preferredStyle:
         UIAlertControllerStyle.Alert)
+    let urlAlertController = UIAlertController(title: "Error", message: "Url was invalid.", preferredStyle:
+    UIAlertControllerStyle.Alert)
     let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (UIAlertAction) in
         print("OK")
     }
@@ -44,6 +46,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         failureAlertController.addAction(okAction)
+        urlAlertController.addAction(okAction)
         loadPins()
     }
     
@@ -76,15 +79,23 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == view.rightCalloutAccessoryView {
             let app = UIApplication.sharedApplication()
-            if let toOpen = view.annotation?.subtitle! {
-                app.openURL(NSURL(string: toOpen)!)
+            let toOpen = view.annotation?.subtitle!
+            if let appURL = NSURL(string: toOpen!) {
+                if app.canOpenURL(appURL) {
+                    app.openURL(appURL)
+                } else {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.presentViewController(self.urlAlertController, animated: true, completion: nil)
+                    }
+
+                }
             }
         }
     }
     
     private func loadPins() {
         ParseClient.sharedInstance().getLocations() { (annotations, error) in
-            if let error = error {
+            if error != nil {
                 dispatch_async(dispatch_get_main_queue()) {
                     self.presentViewController(self.failureAlertController, animated: true, completion: nil)
                 }

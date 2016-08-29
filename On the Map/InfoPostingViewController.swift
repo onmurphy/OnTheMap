@@ -77,6 +77,8 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate, MKMapViewDe
     @IBAction func findButtonClicked() {
         address = locationTextField.text
         
+        setUIEnabled(false)
+        
         geoCoder.geocodeAddressString(address!) { (placemarks, error) in
             if error != nil {
                 self.presentViewController(self.locationAlertController, animated: true, completion: nil)
@@ -107,12 +109,15 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate, MKMapViewDe
                 self.cancelButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
             }
         }
+        
+        setUIEnabled(true)
     }
     
     override func viewDidLoad() {
         appDelegate = UIApplication.sharedApplication().delegate! as! AppDelegate
         
         self.locationTextField.delegate = self
+        self.urlTextField.delegate = self
         
         locationAlertController.addAction(okAction)
         linkAlertController.addAction(okAction)
@@ -129,6 +134,20 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate, MKMapViewDe
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    private func setUIEnabled(enabled: Bool) {
+        cancelButton.enabled = enabled
+        locationTextField.enabled = enabled
+        findButton.enabled = enabled
+        
+        if enabled {
+            findButton.alpha = 1.0
+            cancelButton.alpha = 1.0
+        } else {
+            findButton.alpha = 0.5
+            cancelButton.alpha = 0.5
+        }
     }
     
 }

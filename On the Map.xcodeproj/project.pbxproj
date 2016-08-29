@@ -22,9 +22,7 @@
 		06151D3D1D661A1E009669ED /* ParseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06151D3C1D661A1E009669ED /* ParseClient.swift */; };
 		06151D3F1D661A36009669ED /* ParseConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06151D3E1D661A36009669ED /* ParseConvenience.swift */; };
 		06151D421D6777A2009669ED /* ParseStudent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06151D411D6777A2009669ED /* ParseStudent.swift */; };
-		06BC79771D6E48C100B9D1FA /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06BC79761D6E48C100B9D1FA /* FBSDKLoginKit.framework */; };
-		06BC79791D6E48D100B9D1FA /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06BC79781D6E48D100B9D1FA /* FBSDKShareKit.framework */; };
-		06BC797B1D6E48E300B9D1FA /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06BC797A1D6E48E300B9D1FA /* FBSDKCoreKit.framework */; };
+		06BC79881D73A9AA00B9D1FA /* StudentInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BC79871D73A9AA00B9D1FA /* StudentInformation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,10 +64,7 @@
 		06151D3C1D661A1E009669ED /* ParseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseClient.swift; sourceTree = "<group>"; };
 		06151D3E1D661A36009669ED /* ParseConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseConvenience.swift; sourceTree = "<group>"; };
 		06151D411D6777A2009669ED /* ParseStudent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseStudent.swift; sourceTree = "<group>"; };
-		06151D501D69560C009669ED /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
-		06BC79761D6E48C100B9D1FA /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../Documents/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
-		06BC79781D6E48D100B9D1FA /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = ../../Documents/FacebookSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
-		06BC797A1D6E48E300B9D1FA /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../Documents/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		06BC79871D73A9AA00B9D1FA /* StudentInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInformation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,9 +72,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				06BC797B1D6E48E300B9D1FA /* FBSDKCoreKit.framework in Frameworks */,
-				06BC79791D6E48D100B9D1FA /* FBSDKShareKit.framework in Frameworks */,
-				06BC79771D6E48C100B9D1FA /* FBSDKLoginKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,9 +95,6 @@
 		06151CF01D5D38DB009669ED = {
 			isa = PBXGroup;
 			children = (
-				06BC797A1D6E48E300B9D1FA /* FBSDKCoreKit.framework */,
-				06BC79781D6E48D100B9D1FA /* FBSDKShareKit.framework */,
-				06BC79761D6E48C100B9D1FA /* FBSDKLoginKit.framework */,
 				06151CFB1D5D38DB009669ED /* On the Map */,
 				06151D121D5D38DB009669ED /* On the MapTests */,
 				06151D1D1D5D38DB009669ED /* On the MapUITests */,
@@ -132,7 +121,6 @@
 				06151D311D65F426009669ED /* Controller */,
 				06151D301D65F422009669ED /* Assets */,
 				06151D341D65F48C009669ED /* Supporting Files */,
-				06151D431D695158009669ED /* Frameworks */,
 			);
 			path = "On the Map";
 			sourceTree = "<group>";
@@ -204,7 +192,6 @@
 			children = (
 				06151D361D65F752009669ED /* Udacity */,
 				06151D371D65F75A009669ED /* Parse */,
-				06151D401D661A3D009669ED /* Facebook */,
 			);
 			name = Clients;
 			sourceTree = "<group>";
@@ -224,23 +211,9 @@
 				06151D3C1D661A1E009669ED /* ParseClient.swift */,
 				06151D3E1D661A36009669ED /* ParseConvenience.swift */,
 				06151D411D6777A2009669ED /* ParseStudent.swift */,
+				06BC79871D73A9AA00B9D1FA /* StudentInformation.swift */,
 			);
 			name = Parse;
-			sourceTree = "<group>";
-		};
-		06151D401D661A3D009669ED /* Facebook */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Facebook;
-			sourceTree = "<group>";
-		};
-		06151D431D695158009669ED /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				06151D501D69560C009669ED /* Bridging-Header.h */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -385,6 +358,7 @@
 				06151D3D1D661A1E009669ED /* ParseClient.swift in Sources */,
 				06151D3F1D661A36009669ED /* ParseConvenience.swift in Sources */,
 				06151CFF1D5D38DB009669ED /* MapViewController.swift in Sources */,
+				06BC79881D73A9AA00B9D1FA /* StudentInformation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -536,13 +510,12 @@
 					the,
 					Map,
 				);
-				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "~/Documents/FacebookSDK";
 				INFOPLIST_FILE = "On the Map/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Murphy.On-the-Map";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "On the Map/Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = Debug;
 		};
@@ -558,13 +531,12 @@
 					the,
 					Map,
 				);
-				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "~/Documents/FacebookSDK";
 				INFOPLIST_FILE = "On the Map/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Murphy.On-the-Map";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "On the Map/Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = Release;
 		};

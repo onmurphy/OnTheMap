@@ -373,16 +373,6 @@
                                     <action selector="signUpButtonClicked" destination="opS-Vs-Gdf" eventType="touchUpInside" id="sny-Ih-JV6"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wAu-HL-j7F" customClass="FBSDKLoginButton">
-                                <rect key="frame" x="20" y="518" width="560" height="50"/>
-                                <color key="backgroundColor" red="0.32966391944412576" green="0.27033770685547776" blue="0.90268429487179491" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="T4Y-pi-Mkv"/>
-                                </constraints>
-                                <state key="normal" title="Sign in with Facebook">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Password" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="ncW-cK-T7h">
                                 <rect key="frame" x="20" y="244" width="560" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.77528840389999998" blue="0.51814992390000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -396,14 +386,12 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="o0a-Hn-d8f" firstAttribute="trailing" secondItem="wAu-HL-j7F" secondAttribute="trailing" id="0JG-HV-Mwl"/>
                             <constraint firstItem="YSu-dq-qIZ" firstAttribute="top" secondItem="5gS-KS-j1Z" secondAttribute="bottom" constant="45" id="5bj-V6-kNf"/>
                             <constraint firstItem="zd0-mc-aGW" firstAttribute="trailing" secondItem="o0a-Hn-d8f" secondAttribute="trailing" id="6yQ-IC-Xao"/>
                             <constraint firstItem="EWu-Md-kie" firstAttribute="centerX" secondItem="5gS-KS-j1Z" secondAttribute="centerX" id="8je-uY-dyP"/>
                             <constraint firstItem="YSu-dq-qIZ" firstAttribute="leading" secondItem="PuK-yH-kdb" secondAttribute="leadingMargin" id="9vV-p3-G4G"/>
                             <constraint firstItem="o0a-Hn-d8f" firstAttribute="top" secondItem="zd0-mc-aGW" secondAttribute="bottom" constant="14" id="AGJ-1g-H6l"/>
                             <constraint firstItem="YSu-dq-qIZ" firstAttribute="trailing" secondItem="PuK-yH-kdb" secondAttribute="trailingMargin" id="B5M-Hi-Fys"/>
-                            <constraint firstItem="o0a-Hn-d8f" firstAttribute="leading" secondItem="wAu-HL-j7F" secondAttribute="leading" id="HMa-Au-cFx"/>
                             <constraint firstItem="ncW-cK-T7h" firstAttribute="top" secondItem="YSu-dq-qIZ" secondAttribute="bottom" constant="8" symbolic="YES" id="IE4-oq-aWW"/>
                             <constraint firstItem="YSu-dq-qIZ" firstAttribute="trailing" secondItem="ncW-cK-T7h" secondAttribute="trailing" id="J1s-nP-qkx"/>
                             <constraint firstItem="ncW-cK-T7h" firstAttribute="leading" secondItem="zd0-mc-aGW" secondAttribute="leading" id="OmO-1P-1bt"/>
@@ -415,12 +403,10 @@
                             <constraint firstItem="5gS-KS-j1Z" firstAttribute="top" secondItem="aCR-p8-8DM" secondAttribute="bottom" constant="104" id="eEn-nq-dDw"/>
                             <constraint firstItem="zd0-mc-aGW" firstAttribute="leading" secondItem="o0a-Hn-d8f" secondAttribute="leading" id="jab-ah-f5o"/>
                             <constraint firstItem="ncW-cK-T7h" firstAttribute="trailing" secondItem="zd0-mc-aGW" secondAttribute="trailing" id="kS7-h3-7aG"/>
-                            <constraint firstItem="Jce-JH-TgH" firstAttribute="top" secondItem="wAu-HL-j7F" secondAttribute="bottom" constant="32" id="w5e-NB-ulF"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="emailTextField" destination="YSu-dq-qIZ" id="0en-Z6-F1h"/>
-                        <outlet property="facebookButton" destination="wAu-HL-j7F" id="Ok5-o8-2Nn"/>
                         <outlet property="loginButton" destination="zd0-mc-aGW" id="jgi-K0-q95"/>
                         <outlet property="passwordTextField" destination="ncW-cK-T7h" id="fjx-n6-k02"/>
                     </connections>

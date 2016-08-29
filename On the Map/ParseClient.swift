@@ -17,8 +17,6 @@ class ParseClient : NSObject {
     // authentication state
     var sessionID: String? = nil
     
-    var students = [ParseStudent]()
-    
     // MARK: Initializers
     override init() {
         super.init()
@@ -31,7 +29,7 @@ class ParseClient : NSObject {
         let request : NSMutableURLRequest
         
         if all {
-            request = NSMutableURLRequest(URL: NSURL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
+            request = NSMutableURLRequest(URL: NSURL(string: "https://parse.udacity.com/parse/classes/StudentLocation?limit=100&order=-createdAt,-updatedAt")!)
         } else {
             request = NSMutableURLRequest(URL: NSURL(string: "https://parse.udacity.com/parse/classes/StudentLocation?where=%7B%22uniqueKey%22%3A%22\(UdacityClient.sharedInstance().accountKey!)%22%7D")!)
         }

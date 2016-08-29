@@ -44,8 +44,10 @@ extension ParseClient {
                         let mediaURL = dictionary["mediaURL"] as! String
                         let location = dictionary["mapString"] as! String
                         
-                        let student = ParseStudent(name: name, url: mediaURL, location: location)
-                        self.students.append(student)
+                        let dict = ["name": name, "url": mediaURL, "location": location]
+                        
+                        let student = ParseStudent(student: dict)
+                        StudentInformation.sharedInstance().students.append(student)
                         
                         // Here we create the annotation and set its coordiate, title, and subtitle properties
                         let annotation = MKPointAnnotation()

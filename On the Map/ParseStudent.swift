@@ -11,4 +11,10 @@ struct ParseStudent {
     let name: String
     let url: String
     let location: String
+    
+    init(student: [String: AnyObject]) {
+        name = String(student["name"])
+        url = String(student["url"])
+        location = String(student["location"])
+    }
 }
