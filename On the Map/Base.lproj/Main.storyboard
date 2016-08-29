@@ -171,6 +171,9 @@
                                     <action selector="cancelButtonClicked" destination="HsT-Y9-JC8" eventType="touchUpInside" id="86J-p4-e0N"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="eZb-yb-oLO">
+                                <rect key="frame" x="290" y="373" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.82299679487179478" green="0.82299679487179478" blue="0.82299679487179478" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -180,11 +183,13 @@
                             <constraint firstItem="SFk-Aa-2Ve" firstAttribute="top" secondItem="FAH-i4-GAf" secondAttribute="bottom" constant="77" id="8Zl-LX-k54"/>
                             <constraint firstItem="SFk-Aa-2Ve" firstAttribute="top" secondItem="e8Q-CG-bOE" secondAttribute="bottom" constant="38" id="9Xs-it-IbP"/>
                             <constraint firstItem="pee-Cv-V6O" firstAttribute="centerX" secondItem="xxW-mM-Snf" secondAttribute="centerX" id="Cmy-tY-BcI"/>
+                            <constraint firstItem="eZb-yb-oLO" firstAttribute="centerX" secondItem="xxW-mM-Snf" secondAttribute="centerX" id="EPg-CB-gE3"/>
                             <constraint firstItem="SFk-Aa-2Ve" firstAttribute="top" secondItem="pee-Cv-V6O" secondAttribute="top" id="JgK-d3-mKU"/>
                             <constraint firstItem="FAH-i4-GAf" firstAttribute="top" secondItem="0ot-VT-EuR" secondAttribute="bottom" constant="47" id="MRM-S9-fhk"/>
                             <constraint firstItem="SFk-Aa-2Ve" firstAttribute="trailing" secondItem="pee-Cv-V6O" secondAttribute="trailing" id="NW6-yR-Rb6"/>
                             <constraint firstItem="cYY-g6-e23" firstAttribute="trailing" secondItem="FAH-i4-GAf" secondAttribute="trailing" id="RCt-Zh-9Y9"/>
                             <constraint firstItem="d2r-eN-dup" firstAttribute="leading" secondItem="e8Q-CG-bOE" secondAttribute="leading" id="S9z-Pn-6gz"/>
+                            <constraint firstAttribute="bottom" secondItem="eZb-yb-oLO" secondAttribute="bottom" constant="207" id="SqS-pi-cip"/>
                             <constraint firstItem="xxW-mM-Snf" firstAttribute="top" secondItem="pee-Cv-V6O" secondAttribute="bottom" constant="80" id="V3K-6k-z4A"/>
                             <constraint firstItem="Pey-Gm-RZG" firstAttribute="top" secondItem="xxW-mM-Snf" secondAttribute="bottom" constant="32" id="a3y-WK-OGI"/>
                             <constraint firstItem="pee-Cv-V6O" firstAttribute="leading" secondItem="SFk-Aa-2Ve" secondAttribute="leading" id="bRo-Ro-4g3"/>
@@ -204,6 +209,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="eZb-yb-oLO" id="qep-Ha-U4V"/>
                         <outlet property="cancelButton" destination="0ot-VT-EuR" id="EqE-yS-QLZ"/>
                         <outlet property="findButton" destination="xxW-mM-Snf" id="vg0-oe-1kz"/>
                         <outlet property="locationTextField" destination="pee-Cv-V6O" id="8ie-dC-Wq5"/>

@@ -38,6 +38,7 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate, MKMapViewDe
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var urlTextField: UITextField!
     @IBOutlet weak var submitButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     @IBAction func cancelButtonClicked() {
         let initialViewController = self.storyboard!.instantiateViewControllerWithIdentifier("TabBarController")
@@ -126,6 +127,7 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate, MKMapViewDe
         self.mapView.hidden = true
         self.urlTextField.hidden = true
         self.submitButton.hidden = true
+        self.activityIndicator.hidden = true
         
         self.findButton.layer.cornerRadius = 8
         self.submitButton.layer.cornerRadius = 8
@@ -144,9 +146,13 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate, MKMapViewDe
         if enabled {
             findButton.alpha = 1.0
             cancelButton.alpha = 1.0
+            activityIndicator.stopAnimating()
+            activityIndicator.hidden = enabled
         } else {
             findButton.alpha = 0.5
             cancelButton.alpha = 0.5
+            activityIndicator.hidden = enabled
+            activityIndicator.startAnimating()
         }
     }
     

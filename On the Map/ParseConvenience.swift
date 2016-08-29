@@ -45,6 +45,7 @@ extension ParseClient {
                         let location = dictionary["mapString"] as! String
                         
                         let dict = ["name": name, "url": mediaURL, "location": location]
+                        print (dict)
                         
                         let student = ParseStudent(student: dict)
                         StudentInformation.sharedInstance().students.append(student)

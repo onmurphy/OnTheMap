@@ -19,11 +19,6 @@ class UdacityClient : NSObject {
     var firstName: String? = nil
     var lastName: String? = nil
     
-    // MARK: Initializers
-    override init() {
-        super.init()
-    }
-    
     // MARK: LOGIN
     
     func taskForLOGINMethod(username: String, password: String, completionHandlerForLOGIN: (result: AnyObject!, error: String?) -> Void) -> NSURLSessionDataTask {

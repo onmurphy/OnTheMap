@@ -31,18 +31,11 @@ class TableViewController: UIViewController {
     }
     
     @IBAction func refreshButtonClicked() {
-        loadPins()
         self.tableView.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        loadPins()
-    }
-    
-    private func loadPins() {
-        print(StudentInformation.sharedInstance().students)
     }
 
 }
@@ -57,6 +50,7 @@ class TableViewController: UIViewController {
             
             /* Set cell defaults */
             cell.textLabel!.text = student.name
+            print(student.name)
             
             return cell
         }
