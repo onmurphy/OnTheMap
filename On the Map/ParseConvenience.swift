@@ -38,11 +38,13 @@ extension ParseClient {
                         // The lat and long are used to create a CLLocationCoordinates2D instance.
                         let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
                         
-                        let first = dictionary["firstName"] as! String
-                        let last = dictionary["lastName"] as! String
+                        let first = dictionary["firstName"] as? String ?? "John"
+                        let last = dictionary["lastName"] as? String ?? "Smith"
+
                         let name = first + " " + last
-                        let mediaURL = dictionary["mediaURL"] as! String
-                        let location = dictionary["mapString"] as! String
+                        
+                        let mediaURL = dictionary["mediaURL"] as? String ?? "http://udacity.com"
+                        let location = dictionary["mapString"] as? String ?? "Mountain View, CA"
                         
                         let dict = ["name": name, "url": mediaURL, "location": location]
                         print (dict)
