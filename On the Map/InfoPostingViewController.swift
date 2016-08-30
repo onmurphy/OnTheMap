@@ -82,6 +82,9 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate, MKMapViewDe
         
         geoCoder.geocodeAddressString(address!) { (placemarks, error) in
             if error != nil {
+                
+                self.setUIEnabled(true)
+                
                 self.presentViewController(self.locationAlertController, animated: true, completion: nil)
             }
             
@@ -109,9 +112,11 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate, MKMapViewDe
                 self.submitButton.hidden = false
                 self.cancelButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
             }
+            
+            self.setUIEnabled(true)
         }
         
-        setUIEnabled(true)
+
     }
     
     override func viewDidLoad() {
